@@ -1,0 +1,2224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowWith | Premium Digital Marketing Agency Rajkot</title>
+    <!-- Google Fonts: Cormorant Garamond (Heading) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Vanilla CSS Style -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Dynamic Color Variable Injection Stylesheet -->
+    <style id="dynamic-brand-styles"></style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- Self-Contained Vanilla JS App (Bypasses CORS & CDN failures, runs 100% offline via double-click) -->
+    <script>
+/* ==========================================================================
+   GROWWITH AGENCY - PURE VANILLA JS SPA & CMS ENGINE (FULL CRUD SHIELDED BUILD)
+   ========================================================================== */
+
+// 1. SIMPLE SVG ICONS
+const getIcon = (name, size = 18, className = "") => {
+    const paths = {
+        star: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>',
+        zap: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>',
+        shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>',
+        sparkles: '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>',
+        award: '<circle cx="12" cy="8" r="7"></circle><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"></path>',
+        arrowRight: '<line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>',
+        arrowLeft: '<line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline>',
+        menu: '<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>',
+        x: '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>',
+        plus: '<line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>',
+        trash: '<polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line>',
+        edit: '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>',
+        check: '<polyline points="20 6 9 17 4 12"></polyline>',
+        chevronDown: '<polyline points="6 9 12 15 18 9"></polyline>',
+        chevronUp: '<polyline points="18 15 12 9 6 15"></polyline>',
+        chevronRight: '<polyline points="9 18 15 12 9 6"></polyline>',
+        phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>',
+        messageSquare: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>',
+        mail: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>',
+        settings: '<circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>',
+        grid: '<rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>',
+        fileText: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>',
+        image: '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline>',
+        briefcase: '<rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>',
+        users: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>',
+        lock: '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>',
+        eye: '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>',
+        download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path>',
+        arrowUp: '<line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline>',
+        arrowDown: '<line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline>',
+        filter: '<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>',
+        logOut: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"></path>',
+        link: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>'
+    };
+    
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon ${className}">${paths[name] || '<circle cx="12" cy="12" r="10" />'}</svg>`;
+};
+
+// 2. MOCK DATABASE (INITIAL SEEDING)
+const DB_VERSION = "growwith_db_v1.0";
+
+const DEFAULT_BRAND_DATA = {
+    primaryColor: "#C9A84C",
+    backgroundColor: "#080808",
+    textColor: "#E0E0E0",
+    accentColor: "#E8D5A3",
+    logoUrl: "./assets/logo.jpg",
+    faviconUrl: "./assets/logo.jpg",
+    agencyName: "GrowWith",
+    tagline: "Digital Growth for Local Businesses"
+};
+
+const DEFAULT_PAGES_DATA = [
+    {
+        id: "home",
+        title: "Home",
+        active: true,
+        sections: [
+            { id: "hero", title: "Hero Section", active: true, content: { headline: "Igniting Digital Growth For Local", headlineAccent: "Brands", subtext: "A luxury design-led marketing agency in Rajkot. We craft premium profiles, scale Google Business pages, and engineer high-ROI Meta & Google advertising campaigns — with zero middlemen.", ctaText: "Book a Consultation" } },
+            { id: "marquee", title: "Services Marquee Scrolling Ticker", active: true, content: { services: ["Brand Management", "High-Converting Reels", "Google Profile SEO", "Seasonal Footfall Campaigns", "Meta & Google Ads", "AI Content Creation", "Premium Profile Design"] } },
+            { id: "what_we_do", title: "What We Do Grid", active: true, content: { title: "Crafting Premium Digital Solutions", subtitle: "Our core services built for brands that value excellence." } },
+            { id: "why_us", title: "Why GrowWith Key Points", active: true, content: { title: "The GrowWith Edge", subtitle: "Why luxury local brands trust us to run their digital presences.", points: [
+                { number: "01", title: "Personal Attention", desc: "No junior account handlers. Work directly with a solo growth partner dedicated to Rajkot's finest brands." },
+                { number: "02", title: "Results-First Strategy", desc: "We track calls, footfall, and revenues — not just double taps or impressions." },
+                { number: "03", title: "AI-Powered Speed", desc: "Leverage advanced custom LLMs and generation models for content that delivers at speed, with human polishing." }
+            ]} },
+            { id: "results", title: "Results Numbers Counter", active: true, content: { title: "Our Growth Footprint", subtitle: "Real metrics delivered to premium client partners.", counters: [
+                { number: "18", suffix: "+", label: "Premium Client Partners" },
+                { number: "40", suffix: "M+", label: "Reels Views Generated" },
+                { number: "350", suffix: "%+", label: "Avg GBP Search Growth" },
+                { number: "12", suffix: "x+", label: "Meta Ads ROI Generated" }
+            ]} },
+            { id: "testimonials", title: "Client Testimonials Slider", active: true, content: { title: "Trusted By Gujarat's Visionaries", subtitle: "Hear directly from local business owners who scaled with us." } },
+            { id: "final_cta", title: "Final Call To Action", active: true, content: { title: "Ready to Scale Your Brand?", subtext: "Let's align on a growth blueprint that makes your competitors look generic.", ctaText: "Request Consultation" } }
+        ]
+    },
+    {
+        id: "services",
+        title: "Services",
+        active: true,
+        sections: [
+            { id: "services_hero", title: "Services Hero", active: true, content: { headline: "Expertise That Scales", subtext: "Six high-impact services customized for premium businesses looking to dominate Rajkot and beyond." } }
+        ]
+    },
+    {
+        id: "portfolio",
+        title: "Portfolio",
+        active: true,
+        sections: [
+            { id: "portfolio_hero", title: "Portfolio Hero", active: true, content: { headline: "Results We've Built", subtext: "A curated look into our high-ROI campaigns, premium content shoots, and localized brand strategies." } }
+        ]
+    },
+    {
+        id: "about",
+        title: "About",
+        active: true,
+        sections: [
+            { id: "about_hero", title: "About Hero", active: true, content: { headline: "The GrowWith Story", subtext: "A Rajkot-born agency breaking the traditional bloated agency model with AI-enabled efficiency and senior-level execution." } },
+            { id: "process", title: "4-Step Process Timeline", active: true, content: { title: "Our Growth Framework", subtitle: "How we align your vision with revenue outcomes.", steps: [
+                { title: "Deep Research", desc: "Analyzing your Rajkot local competitors, pricing models, GBP SEO keyword gaps, and customer psychology." },
+                { title: "Bespoke Strategy", desc: "Designing target content angles, local festival campaign grids, and customized ad spend funnels." },
+                { title: "Flawless Execution", desc: "Executing high-end shoots, writing scripts, designing carousels, and managing daily optimization cycles." },
+                { title: "Transparent Reporting", desc: "Bi-weekly WhatsApp logs and monthly reviews mapping traffic and customer conversions." }
+            ]} },
+            { id: "toolstack", title: "AI Tool Stack Section", active: true, content: { title: "Our Intelligent Stack", subtitle: "Using leading generative systems to drive content velocity and analytical superiority." } }
+        ]
+    },
+    {
+        id: "pricing",
+        title: "Pricing",
+        active: true,
+        sections: [
+            { id: "pricing_hero", title: "Pricing Hero", active: true, content: { headline: "Simple. Transparent. Results-First.", subtext: "No long lock-in contracts. Premium packages scaled for your business needs." } }
+        ]
+    },
+    {
+        id: "blog",
+        title: "Blog",
+        active: true,
+        sections: [
+            { id: "blog_hero", title: "Blog Hero", active: true, content: { headline: "Insights & Growth Guides", subtext: "Free, actionable frameworks on how to market your luxury brand, optimize GBP, and run ads locally." } }
+        ]
+    },
+    {
+        id: "consultation",
+        title: "Consultation",
+        active: true,
+        sections: [
+            { id: "consultation_hero", title: "Consultation Hero", active: true, content: { headline: "Let's Talk About Your Growth", subtext: "Book a direct 30-minute growth review session. Zero sales pitch. All value." } }
+        ]
+    }
+];
+
+const DEFAULT_SERVICES_LIST = [
+    { id: 1, icon: "✦", title: "Premium Profile & Brand Management", desc: "Turn generic social pages into luxury digital storefronts. We completely redesign your layouts, set elegant visual guidelines, and establish a high-end Rajkot brand tone that commands premium prices.", tags: ["Brand Identity", "Design Grid", "Tone of Voice", "Visual System"] },
+    { id: 2, icon: "◈", title: "Content & Posts", desc: "Custom-made carousels, aesthetic static designs, localized festival posts, and high-conversion offer graphics. High attention to detail, maintaining color palettes and typography rules.", tags: ["Graphic Design", "Festival Creatives", "Offers & Launches", "Carousels"] },
+    { id: 3, icon: "▶", title: "Video & Reels", desc: "High-hook video creation designed to hit explorer feeds. Scriptwriting tailored to local trends, professional editing, custom subtitles, and gold color grades. AI video tools are layered for rapid scaling.", tags: ["Scriptwriting", "Pro Video Editing", "AI Scaling", "Hook Design"] },
+    { id: 4, icon: "◎", title: "Google Business Profile Management", desc: "Rajkot consumers search local. We optimize your Google Map profile to rank #1 in local keywords, manage authentic reviews, handle citation building, and post updates to drive daily calls and driving directions.", tags: ["Local Map SEO", "Review Campaigns", "Keyword Tuning", "Call Generation"] },
+    { id: 5, icon: "❋", title: "Seasonal Campaigns", desc: "Unlock massive footfall during Bridal Seasons, Diwali, Navratri, and shop launches. Dynamic campaign models engineered to align local offline walk-ins with digital hype.", tags: ["Bridal Campaigns", "Festival Grids", "Footfall Events", "Aesthetic Promos"] },
+    { id: 6, icon: "⬡", title: "Meta & Google Ads", desc: "Hyper-targeted paid acquisition. We construct custom audiences, write high-conversion copy, and optimize conversion pixels. Ad budgets are kept transparently client-side (no markups on ad spend).", tags: ["Targeting Funnels", "Copywriting", "Pixel Setup", "ROI Dashboards"] }
+];
+
+const DEFAULT_PORTFOLIO_LIST = [
+    { id: 1, clientName: "Vrajlal & Sons Jewellers", industry: "Jewellery", problem: "Stuck with outdated catalog posts on Instagram and failing to reach millennial bridal shoppers in Gujarat.", solution: "Launched a luxury visual identity with micro-shot Reels, high-end model shoots, and a targeted bridal campaign targeting high-intent pin codes.", result: " Bridal appointment bookings surged, and Reels reached over 1.2M local users.", metrics: { main: "+140%", sub: "Bridal Walk-ins" }, beforeImage: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=80&w=300", afterImage: "./assets/case_study_jewellery.jpg", show: true },
+    { id: 2, clientName: "Gir Organic Dairy Farms", industry: "Dairy", problem: "High-quality milk products but perceived as a commodity, resulting in price wars with mass-market milk dairies.", solution: "Re-branded Gir Organic into a luxury lifestyle wellness brand. Focused on high-end glass packaging carousels and organic farm life storytelling.", result: "Drove direct subscription inquiries via WhatsApp, lifting overall premium milk subscriptions by 80%.", metrics: { main: "+80%", sub: "Monthly Subscriptions" }, beforeImage: "https://images.unsplash.com/photo-1563636619-e9143da7973b?q=80&w=300", afterImage: "./assets/case_study_dairy.jpg", show: true },
+    { id: 3, clientName: "Chauhan & Co. Interiors", industry: "Interior Design", problem: "Relying purely on word-of-mouth with empty Google Business Profiles and low visual footprint online.", solution: "Optimized local SEO maps for 'luxury interior designers Rajkot' and compiled cinematic walk-through video Reels of completed luxury villa projects.", result: "Ranked #2 on Google Local Map Pack within 45 days, producing premium inbound client design inquiries.", metrics: { main: "22+", sub: "Premium Leads / Mo" }, beforeImage: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=300", afterImage: "./assets/case_study_interior.jpg", show: true }
+];
+
+const DEFAULT_TESTIMONIALS_LIST = [
+    { id: 1, clientName: "Dharmesh Shah", business: "Vrajlal Jewellers, Rajkot", quote: "GrowWith transformed our social media from a boring brochure into an active sales machine. We've never had this many walk-ins from online.", photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150", show: true, order: 1 },
+    { id: 2, clientName: "Amit Patel", business: "Gir Organic Dairies", quote: "The personal attention is outstanding. Since we started working together, we've increased our premium milk orders without running expensive ads.", photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150", show: true, order: 2 },
+    { id: 3, clientName: "Nisha Chauhan", business: "Chauhan Interior Studios", quote: "Ranking on Google Maps has changed our business. We get high-paying villa design inquiries direct to our WhatsApp every single week now.", photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150", show: true, order: 3 }
+];
+
+const DEFAULT_PACKAGES_LIST = [
+    { id: 1, name: "Starter", tagline: "For growing local retailers wanting digital presence.", features: ["3 Premium posts per week", "Basic Grid Layout & Tone", "Google Business Profile Basic setup", "Diwali & New Year creatives", "Monthly WhatsApp reporting"], recommended: false, show: true },
+    { id: 2, name: "Growth", tagline: "Our flagship. Best for premium brands scaling presence.", features: ["5 Premium posts & carousel designs/week", "2 Custom video Reels/week (scripted & edited)", "Full Google Business Profile Map SEO optimization", "Diwali, Navratri, and Wedding seasonal grids", "Meta & Google Ads Campaign setup & monitoring", "Bi-weekly progress review & analytics"], recommended: true, show: true },
+    { id: 3, name: "Premium", tagline: "Complete digital dominance with zero compromises.", features: ["Daily premium content uploads (posts/carousels)", "4 Cinematic Reels/week (scripted, edited, graded)", "Google Maps Map Pack optimization + reviews campaigns", "Full bridal, store footfall, and launching campaigns", "Advanced Ads (Meta/Google retargeting & lookalikes)", "Real-time Google Analytics & Pixel tracking logs", "Direct 1-on-1 Slack/WhatsApp daily communication"], recommended: false, show: true }
+];
+
+const DEFAULT_BLOGS_LIST = [
+    { id: 1, title: "How to Optimize Your Google Map Profile for Rajkot Local Search", category: "SEO", thumbnail: "https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?q=80&w=500", readTime: "5 min read", date: "July 12, 2026", content: `<h2>The Local Map SEO Playbook for Rajkot Businesses</h2><p>When someone in Rajkot searches for "best jewellery store near me" or "interior designer in Rajkot", Google doesn't display web links first. It displays the Google Map Pack.</p><p>If your business isn't in the top 3 spots, you are losing over 70% of local digital inquiries to competitors. Here is the exact framework we use at GrowWith to rank our premium partners.</p><h3>1. Claim and Complete Your Profile</h3><p>Make sure your business name matches your real-world signage exactly. Do not stuff keywords like "Top Jewellery" if it's not your legal name. Fill in business hours, categories, and direct contact numbers.</p><h3>2. Localized Reviews Campaign</h3><p>Google prioritizes active, highly rated listings. Implement a QR-code reviews system at checkout. Do not buy fake reviews — Google filters them out quickly.</p><h3>3. Daily Updates & Images</h3><p>Post updates and high-quality product images to your map profile at least twice a week. Treat it like a secondary Instagram feed. It signals to Google's ranking algorithms that your business is active and operational.</p>`, status: "published" },
+    { id: 2, title: "Diwali & Navratri: Scaling Festive Walk-ins for Retail Brands", category: "Seasonal Campaigns", thumbnail: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?q=80&w=500", readTime: "4 min read", date: "June 28, 2026", content: `<h2>Festival Campaign Blueprint: navratri & Diwali</h2><p>Rajkot retailers generate up to 50% of their annual revenues during Navratri and Diwali. Yet, most start advertising just a week before the festival. By then, advertising costs are at peak, and consumer attention is crowded.</p><p>To stand out, premium brands must implement a multi-stage festive funnel.</p><h3>Stage 1: The Teaser & Custom Lists (4 Weeks Before)</h3><p>Build custom audiences. Offer early-bird registrations for bridal collections or festival bookings. Capture names, business names, and WhatsApp numbers.</p><h3>Stage 2: The Aesthetic Narrative (2 Weeks Before)</h3><p>Launch high-concept video Reels highlighting artisan design stories, heritage values, and luxury collections. Focus on brand sentiment over hard discounts.</p><h3>Stage 3: The High-ROI Targeting (1 Week Before)</h3><p>Run targeted ad sets within 5-10 km of your showroom. Push high-urgency CTAs: "Book your showroom visit slot" or "Exclusive collections launching today".</p>`, status: "published" },
+    { id: 3, title: "Why Solo Agency Beats Bloated Creative Agencies for Premium Brands", category: "Branding", thumbnail: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=500", readTime: "6 min read", date: "May 15, 2026", content: `<h2>The Solo Agency Model: Speed, Seniority, and Results</h2><p>Traditional creative agencies in India operate on a bloated retainer model. You meet a charismatic founder during the pitch, but once the contract is signed, your account is delegated to a junior intern earning minimum wage.</p><p>This is why luxury brands often experience social grid inconsistencies and slow deliverables.</p>`, status: "published" }
+];
+
+const DEFAULT_LEADS_LIST = [
+    { id: 1, name: "Rajesh Patel", businessName: "Vrajlal sweets", whatsappNumber: "+91 98250 12345", service: "Google Profile Optimization", bestTime: "Evening (4 PM - 7 PM)", message: "We want to boost our local map subscriptions in Rajkot.", date: "July 15, 2026", status: "new" }
+];
+
+const DEFAULT_SETTINGS_DATA = {
+    whatsappNumber: "+919876543210",
+    contactEmail: "growwith.rajkot@gmail.com",
+    instagramUrl: "https://instagram.com/growwith.agency",
+    facebookUrl: "https://facebook.com/growwith.agency",
+    googleAnalyticsId: "G-XXXXXXXXXX",
+    metaPixelId: "PX-YYYYYYYYYY"
+};
+
+// 3. CORE STATE CONTROLLER
+let state = {
+    route: "home", 
+    selectedBlogPostId: null,
+    selectedCaseStudy: null,
+    activeTab: "All",
+    activeBlogTab: "All",
+    toasts: [],
+    mobileMenuOpen: false,
+    isLoggedIn: false,
+    adminActiveTab: "dashboard",
+    adminExpandedPage: null,
+    
+    // Database Cache
+    brand: DEFAULT_BRAND_DATA,
+    pages: DEFAULT_PAGES_DATA,
+    services: DEFAULT_SERVICES_LIST,
+    portfolio: DEFAULT_PORTFOLIO_LIST,
+    testimonials: DEFAULT_TESTIMONIALS_LIST,
+    packages: DEFAULT_PACKAGES_LIST,
+    blogs: DEFAULT_BLOGS_LIST,
+    leads: DEFAULT_LEADS_LIST,
+    categories: ["SEO", "Seasonal Campaigns", "Branding", "Social Media", "Video & Reels"],
+    settings: DEFAULT_SETTINGS_DATA,
+    adminPassword: "admin123",
+
+    testimonialIdx: 0,
+
+    // Temp variables for CRUD edits
+    editingBlogId: null,
+    editingPortfolioId: null,
+    editingTestimonialId: null,
+    editingServiceId: null
+};
+
+// Shielded Safe Database Loading (Tolerates missing keys and prevents TypeError crashes)
+const loadDatabase = () => {
+    try {
+        if (!localStorage.getItem(`${DB_VERSION}_brand`)) {
+            // Seed everything clean
+            localStorage.setItem(`${DB_VERSION}_brand`, JSON.stringify(DEFAULT_BRAND_DATA));
+            localStorage.setItem(`${DB_VERSION}_pages`, JSON.stringify(DEFAULT_PAGES_DATA));
+            localStorage.setItem(`${DB_VERSION}_services`, JSON.stringify(DEFAULT_SERVICES_LIST));
+            localStorage.setItem(`${DB_VERSION}_portfolio`, JSON.stringify(DEFAULT_PORTFOLIO_LIST));
+            localStorage.setItem(`${DB_VERSION}_testimonials`, JSON.stringify(DEFAULT_TESTIMONIALS_LIST));
+            localStorage.setItem(`${DB_VERSION}_packages`, JSON.stringify(DEFAULT_PACKAGES_LIST));
+            localStorage.setItem(`${DB_VERSION}_blogs`, JSON.stringify(DEFAULT_BLOGS_LIST));
+            localStorage.setItem(`${DB_VERSION}_leads`, JSON.stringify(DEFAULT_LEADS_LIST));
+            localStorage.setItem(`${DB_VERSION}_settings`, JSON.stringify(DEFAULT_SETTINGS_DATA));
+            localStorage.setItem(`${DB_VERSION}_categories`, JSON.stringify(["SEO", "Seasonal Campaigns", "Branding", "Social Media", "Video & Reels"]));
+            localStorage.setItem(`${DB_VERSION}_adminPassword`, "admin123");
+        }
+
+        const parseOrDef = (key, def) => {
+            const data = localStorage.getItem(`${DB_VERSION}_${key}`);
+            if (!data) return def;
+            try { return JSON.parse(data) || def; } catch(e) { return def; }
+        };
+
+        state.brand = parseOrDef("brand", DEFAULT_BRAND_DATA);
+        state.pages = parseOrDef("pages", DEFAULT_PAGES_DATA);
+        state.services = parseOrDef("services", DEFAULT_SERVICES_LIST);
+        state.portfolio = parseOrDef("portfolio", DEFAULT_PORTFOLIO_LIST);
+        state.testimonials = parseOrDef("testimonials", DEFAULT_TESTIMONIALS_LIST);
+        state.packages = parseOrDef("packages", DEFAULT_PACKAGES_LIST);
+        state.blogs = parseOrDef("blogs", DEFAULT_BLOGS_LIST);
+        state.leads = parseOrDef("leads", DEFAULT_LEADS_LIST);
+        state.categories = parseOrDef("categories", ["SEO", "Seasonal Campaigns", "Branding", "Social Media", "Video & Reels"]);
+        state.settings = parseOrDef("settings", DEFAULT_SETTINGS_DATA);
+        state.adminPassword = localStorage.getItem(`${DB_VERSION}_adminPassword`) || "admin123";
+
+        if (sessionStorage.getItem("growwith_admin_logged_in") === "true") {
+            state.isLoggedIn = true;
+        }
+    } catch (e) {
+        console.error("Database seed failed, applying defaults:", e);
+        state.brand = DEFAULT_BRAND_DATA;
+        state.pages = DEFAULT_PAGES_DATA;
+        state.services = DEFAULT_SERVICES_LIST;
+        state.portfolio = DEFAULT_PORTFOLIO_LIST;
+        state.testimonials = DEFAULT_TESTIMONIALS_LIST;
+        state.packages = DEFAULT_PACKAGES_LIST;
+        state.blogs = DEFAULT_BLOGS_LIST;
+        state.leads = DEFAULT_LEADS_LIST;
+        state.settings = DEFAULT_SETTINGS_DATA;
+    }
+};
+
+const saveDb = (key, val) => {
+    try {
+        localStorage.setItem(`${DB_VERSION}_${key}`, JSON.stringify(val));
+    } catch(e) {}
+    state[key] = val;
+};
+
+const applyStyles = () => {
+    const el = document.getElementById("dynamic-brand-styles");
+    if (el) {
+        el.innerHTML = `
+            :root {
+                --primary-gold: ${state.brand.primaryColor || "#C9A84C"};
+                --bg-color: ${state.brand.backgroundColor || "#080808"};
+                --text-color: ${state.brand.textColor || "#E0E0E0"};
+                --accent-gold: ${state.brand.accentColor || "#E8D5A3"};
+                --gold-glow: 0 0 20px ${(state.brand.primaryColor || "#C9A84C")}26;
+                --gold-glow-intense: 0 0 30px ${(state.brand.primaryColor || "#C9A84C")}59;
+            }
+            body, html {
+                background-color: var(--bg-color);
+                color: var(--text-color);
+            }
+        `;
+    }
+};
+
+// 4. ACTION & CONTROLLERS HELPERS
+window.triggerToast = (msg) => {
+    const id = Date.now();
+    state.toasts.push({ id, message: msg });
+    renderApp();
+    setTimeout(() => {
+        state.toasts = state.toasts.filter(t => t.id !== id);
+        renderApp();
+    }, 3000);
+};
+
+const isPageActive = (id) => {
+    const p = state.pages.find(p => p.id === id);
+    return p ? p.active : false;
+};
+
+const isSectionActive = (pageId, sectionId) => {
+    const p = state.pages.find(p => p.id === pageId);
+    if (!p || !p.active) return false;
+    const s = p.sections.find(s => s.id === sectionId);
+    return s ? s.active : false;
+};
+
+// Testimonials Slider control
+window.slideTestimonial = (direction) => {
+    const activeTest = state.testimonials.filter(t => t.show);
+    if (activeTest.length === 0) return;
+    if (direction === "next") {
+        state.testimonialIdx = (state.testimonialIdx === activeTest.length - 1) ? 0 : state.testimonialIdx + 1;
+    } else {
+        state.testimonialIdx = (state.testimonialIdx === 0) ? activeTest.length - 1 : state.testimonialIdx - 1;
+    }
+    renderApp();
+};
+
+// Accordion Toggler
+window.toggleFaq = (idx) => {
+    state.activeFaq = state.activeFaq === idx ? null : idx;
+    renderApp();
+};
+
+// Portfolio Modal
+window.openPortfolioModal = (id) => {
+    state.selectedCaseStudy = state.portfolio.find(p => p.id === id);
+    renderApp();
+};
+window.closePortfolioModal = () => {
+    state.selectedCaseStudy = null;
+    renderApp();
+};
+
+// Reset database utility
+window.resetDatabase = () => {
+    if (confirm("Reset CMS database modifications? All contents will return to defaults.")) {
+        localStorage.clear();
+        sessionStorage.clear();
+        location.reload();
+    }
+};
+
+// 5. PUBLIC WEB VIEW BUILDERS
+const buildHeader = () => {
+    if (state.route === "admin") return "";
+    
+    const pagesList = [
+        { id: "home", label: "Home" },
+        { id: "services", label: "Services" },
+        { id: "portfolio", label: "Portfolio" },
+        { id: "about", label: "About" },
+        { id: "pricing", label: "Pricing" },
+        { id: "blog", label: "Blog" },
+        { id: "consultation", label: "Consultation" }
+    ];
+
+    const menuItemsHtml = pagesList
+        .filter(p => isPageActive(p.id))
+        .map(p => `<li><a href="#${p.id}" class="nav-link ${state.route === p.id ? 'active' : ''}">${p.label}</a></li>`)
+        .join("");
+
+    return `
+        <header class="site-header">
+            <div class="header-container">
+                <a href="#home" class="logo-link">
+                    <img src="${state.brand.logoUrl}" alt="Logo" class="logo-img" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=150'" />
+                    <span class="logo-text">${state.brand.agencyName}<span>.</span></span>
+                </a>
+
+                <button class="menu-toggle" onclick="state.mobileMenuOpen = !state.mobileMenuOpen; renderApp();">
+                    ${getIcon(state.mobileMenuOpen ? 'x' : 'menu', 24)}
+                </button>
+
+                <nav class="nav-menu ${state.mobileMenuOpen ? 'open' : ''}">
+                    ${menuItemsHtml}
+                    <li class="nav-cta">
+                        <a href="#consultation" class="btn btn-outline" style="padding: 0.5rem 1.2rem; font-size: 0.75rem">Book Consult</a>
+                    </li>
+                </nav>
+
+                <div class="nav-cta" style="display: ${state.mobileMenuOpen ? 'none' : 'block'}">
+                    <a href="#consultation" class="btn btn-outline" style="padding: 0.6rem 1.4rem; font-size: 0.8rem">Book a Consultation</a>
+                </div>
+            </div>
+        </header>
+    `;
+};
+
+const buildFooter = () => {
+    if (state.route === "admin") return "";
+    return `
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <div class="footer-logo">${state.brand.agencyName}<span>.</span></div>
+                    <p>${state.brand.tagline}</p>
+                    <p style="font-size: 0.85rem; color: #666">Rajkot, Gujarat, India</p>
+                    <div class="footer-socials">
+                        <a href="${state.settings.instagramUrl}" target="_blank" class="social-icon-link">${getIcon('link', 16)}</a>
+                        <a href="${state.settings.facebookUrl}" target="_blank" class="social-icon-link">${getIcon('messageSquare', 16)}</a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Agency</h4>
+                    <ul>
+                        ${isPageActive('about') ? `<li><a href="#about">Our Story</a></li>` : ""}
+                        ${isPageActive('portfolio') ? `<li><a href="#portfolio">Our Case Studies</a></li>` : ""}
+                        ${isPageActive('pricing') ? `<li><a href="#pricing">Transparency</a></li>` : ""}
+                        ${isPageActive('blog') ? `<li><a href="#blog">Insights Hub</a></li>` : ""}
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><span style="color: #8E8E8E; font-size: 0.9rem">WhatsApp:</span><br/><a href="https://wa.me/${state.settings.whatsappNumber.replace("+", "")}" style="color: #fff">${state.settings.whatsappNumber}</a></li>
+                        <li><span style="color: #8E8E8E; font-size: 0.9rem">Email:</span><br/><a href="mailto:${state.settings.contactEmail}" style="color: #fff">${state.settings.contactEmail}</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column footer-newsletter">
+                    <h4>Subscribe</h4>
+                    <p>Get exclusive growth frameworks twice a month in your inbox.</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); triggerToast('Subscription successful! Check your mail soon.'); this.reset();">
+                        <input type="email" placeholder="Your primary email" required />
+                        <button type="submit">${getIcon('arrowRight', 16)}</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; ${new Date().getFullYear()} ${state.brand.agencyName}. All Rights Reserved. Crafted with Gold.</p>
+                <div class="footer-bottom-links">
+                    <a href="#admin" style="opacity: 0.5; font-size: 0.8rem">Admin Access</a>
+                </div>
+            </div>
+        </footer>
+    `;
+};
+
+// 6. MAIN ROUTER RENDERER SWITCH
+const buildBody = () => {
+    switch (state.route) {
+        case "home":
+            return buildHomeView();
+        case "services":
+            return buildServicesView();
+        case "portfolio":
+            return buildPortfolioView();
+        case "about":
+            return buildAboutView();
+        case "pricing":
+            return buildPricingView();
+        case "blog":
+            return buildBlogView();
+        case "blog-post":
+            return buildBlogPostView();
+        case "consultation":
+            return buildConsultationView();
+        case "admin":
+            return buildAdminView();
+        default:
+            return `<div class="section" style="text-align:center">Page Not Found</div>`;
+    }
+};
+
+/* ==========================================================================
+   FRONT-END TEMPLATES (HTML GENERATORS)
+   ========================================================================== */
+
+// A. HOME VIEW
+const buildHomeView = () => {
+    const page = state.pages.find(p => p.id === "home") || { sections: [] };
+    const getSect = (id) => page.sections.find(s => s.id === id) || { content: {} };
+
+    let html = "";
+
+    // HERO
+    if (isSectionActive("home", "hero")) {
+        const h = getSect("hero").content || {};
+        html += `
+            <section class="hero-section" style="background-image: url('./assets/hero_bg.jpg')">
+                <div class="hero-overlay"></div>
+                <div class="geometric-bg">
+                    <svg viewBox="0 0 100 100" fill="none" stroke="rgba(201, 168, 76, 0.4)" stroke-width="0.1">
+                        <circle cx="50" cy="50" r="40"></circle>
+                        <circle cx="50" cy="50" r="30"></circle>
+                        <rect x="20" y="20" width="60" height="60" transform="rotate(45 50 50)"></rect>
+                    </svg>
+                </div>
+                <div class="hero-container">
+                    <div class="hero-text">
+                        <div class="hero-agency-tag">${getIcon('sparkles', 14)} Based in Rajkot, Gujarat</div>
+                        <h1 class="hero-title">${h.headline || ""} <span class="accent-serif">${h.headlineAccent || ""}</span></h1>
+                        <p class="hero-subtitle">${h.subtext || ""}</p>
+                        <div class="hero-ctas">
+                            <a href="#consultation" class="btn btn-primary">${h.ctaText || "Book a Consultation"}</a>
+                            <a href="#services" class="btn btn-secondary">Explore Services</a>
+                        </div>
+                    </div>
+                    <div class="hero-visual-panel">
+                        <div class="hero-visual-box">
+                            <div class="hero-visual-box-inner">
+                                <img src="${state.brand.logoUrl}" class="hero-visual-logo" alt="Logo" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=150'" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        `;
+    }
+
+    // MARQUEE TICKER
+    if (isSectionActive("home", "marquee")) {
+        const m = getSect("marquee").content || { services: [] };
+        const tripleItems = [...(m.services || []), ...(m.services || []), ...(m.services || [])];
+        html += `
+            <div class="marquee-container">
+                <div class="marquee-content">
+                    ${tripleItems.map(item => `<span class="marquee-item"><span class="marquee-star">✦</span>${item}</span>`).join("")}
+                </div>
+            </div>
+        `;
+    }
+
+    // WHAT WE DO GRID
+    if (isSectionActive("home", "what_we_do")) {
+        const w = getSect("what_we_do").content || {};
+        html += `
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-tag">Services Overview</span>
+                    <h2 class="section-title">${w.title || ""}</h2>
+                    <p class="section-subtitle">${w.subtitle || ""}</p>
+                </div>
+                <div class="services-grid">
+                    ${state.services.map(s => `
+                        <div class="service-card">
+                            <div class="service-icon-box"><span>${s.icon}</span></div>
+                            <h3 class="service-title">${s.title}</h3>
+                            <p class="service-desc">${s.desc}</p>
+                            <div class="service-tags">
+                                ${s.tags.map(t => `<span class="service-tag-item">${t}</span>`).join("")}
+                            </div>
+                        </div>
+                    `).join("")}
+                </div>
+            </section>
+        `;
+    }
+
+    // WHY US KEY POINTS
+    if (isSectionActive("home", "why_us")) {
+        const y = getSect("why_us").content || { points: [] };
+        html += `
+            <section class="section" style="background-color: #0b0b0b; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color)">
+                <div class="section-header">
+                    <span class="section-tag">Our Philosophy</span>
+                    <h2 class="section-title">${y.title || ""}</h2>
+                    <p class="section-subtitle">${y.subtitle || ""}</p>
+                </div>
+                <div class="why-container">
+                    ${(y.points || []).map(pt => `
+                        <div class="why-card">
+                            <span class="why-number">${pt.number}</span>
+                            <h3 class="why-title">${pt.title}</h3>
+                            <p class="why-desc">${pt.desc}</p>
+                        </div>
+                    `).join("")}
+                </div>
+            </section>
+        `;
+    }
+
+    // RESULTS STAT COUNTERS
+    if (isSectionActive("home", "results")) {
+        const r = getSect("results").content || { counters: [] };
+        html += `
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-tag">Performance Ledger</span>
+                    <h2 class="section-title">${r.title || ""}</h2>
+                    <p class="section-subtitle">${r.subtitle || ""}</p>
+                </div>
+                <div class="results-container">
+                    ${(r.counters || []).map(c => `
+                        <div class="result-card">
+                            <span class="result-number">${c.number}${c.suffix}</span>
+                            <span class="result-label">${c.label}</span>
+                        </div>
+                    `).join("")}
+                </div>
+            </section>
+        `;
+    }
+
+    // TESTIMONIALS SLIDER
+    if (isSectionActive("home", "testimonials")) {
+        const t = getSect("testimonials").content || {};
+        const activeTest = state.testimonials.filter(t => t.show).sort((a,b) => (a.order || 0) - (b.order || 0));
+        
+        if (activeTest.length > 0) {
+            const current = activeTest[state.testimonialIdx] || activeTest[0];
+            html += `
+                <section class="section" style="background-color: #050505; border-top: 1px solid var(--border-color)">
+                    <div class="section-header">
+                        <span class="section-tag">Endorsements</span>
+                        <h2 class="section-title">${t.title || ""}</h2>
+                        <p class="section-subtitle">${t.subtitle || ""}</p>
+                    </div>
+                    <div class="testimonials-slider-container">
+                        <div class="testimonial-slide" style="opacity: 1; transition: opacity 0.5s ease">
+                            <p class="testimonial-quote">"${current.quote}"</p>
+                            <div class="testimonial-client">
+                                <img src="${current.photo}" alt="${current.clientName}" class="testimonial-photo" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150'" />
+                                <div>
+                                    <h4 class="testimonial-name">${current.clientName}</h4>
+                                    <span class="testimonial-biz">${current.business}</span>
+                                </div>
+                            </div>
+                        </div>
+                        ${activeTest.length > 1 ? `
+                            <div class="slider-controls">
+                                <button class="slider-btn" onclick="slideTestimonial('prev')">${getIcon('arrowLeft', 16)}</button>
+                                <button class="slider-btn" onclick="slideTestimonial('next')">${getIcon('arrowRight', 16)}</button>
+                            </div>
+                        ` : ""}
+                    </div>
+                </section>
+            `;
+        }
+    }
+
+    // FINAL CTA
+    if (isSectionActive("home", "final_cta")) {
+        const c = getSect("final_cta").content || {};
+        html += `
+            <section class="section section-dark-gold">
+                <div class="final-cta-container">
+                    <h2 class="final-cta-title">${c.title || ""}</h2>
+                    <p class="final-cta-desc">${c.subtext || ""}</p>
+                    <a href="#consultation" class="btn btn-primary">${c.ctaText || "Book Consultation"}</a>
+                </div>
+            </section>
+        `;
+    }
+
+    return html;
+};
+
+// B. SERVICES VIEW
+const buildServicesView = () => {
+    const page = state.pages.find(p => p.id === "services") || { sections: [] };
+    const heroSect = page.sections.find(s => s.id === "services_hero") || { content: {} };
+    const h = heroSect.content;
+
+    return `
+        <section class="page-hero">
+            <div class="page-hero-overlay"></div>
+            <div class="page-hero-content">
+                <span class="section-tag">GrowWith Offerings</span>
+                <h1 class="page-hero-title">${h.headline || "Services"}</h1>
+                <p class="page-hero-sub">${h.subtext || ""}</p>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="detailed-services-container">
+                ${state.services.map((s, idx) => `
+                    <div class="detail-service-section">
+                        <div class="service-left-panel">
+                            <div class="service-meta">
+                                <span class="service-num">0${idx+1}</span>
+                                <span style="font-size: 2rem; color: var(--primary-gold)">${s.icon}</span>
+                            </div>
+                            <h2 class="detail-service-title">${s.title}</h2>
+                            <div class="service-tags" style="margin-top: 1rem">
+                                ${s.tags.map(t => `<span class="service-tag-item">${t}</span>`).join("")}
+                            </div>
+                        </div>
+                        <div class="service-right-content" style="margin-top: 1.2rem">
+                            <p class="detail-service-desc" style="font-size: 1.1rem; line-height: 1.8; color: #B8B8B8; margin-bottom: 2.5rem">${s.desc}</p>
+                            <h4 style="color: #fff; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1.2rem">Key Focus Areas</h4>
+                            <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem">
+                                <li style="display: flex; gap: 0.8rem; font-size: 0.95rem">
+                                    ${getIcon('check', 16, 'solo-point-icon')}
+                                    <span>Bespoke custom layouts styled matching luxury brand identity guidelines.</span>
+                                </li>
+                                <li style="display: flex; gap: 0.8rem; font-size: 0.95rem">
+                                    ${getIcon('check', 16, 'solo-point-icon')}
+                                    <span>Engineered to target high-net-worth customer segments in Rajkot and regional hubs.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                `).join("")}
+            </div>
+        </section>
+    `;
+};
+
+// C. PORTFOLIO VIEW
+const buildPortfolioView = () => {
+    const page = state.pages.find(p => p.id === "portfolio") || { sections: [] };
+    const heroSect = page.sections.find(s => s.id === "portfolio_hero") || { content: {} };
+    const h = heroSect.content;
+
+    const tabs = ["All", "Jewellery", "Dairy", "Interior Design"];
+    
+    let filteredPortfolio = state.portfolio.filter(item => item.show);
+    if (state.activeTab !== "All") {
+        filteredPortfolio = filteredPortfolio.filter(item => item.industry.toLowerCase() === state.activeTab.toLowerCase());
+    }
+
+    let modalHtml = "";
+    if (state.selectedCaseStudy) {
+        const cs = state.selectedCaseStudy;
+        modalHtml = `
+            <div class="modal-overlay" onclick="closePortfolioModal()">
+                <div class="modal-content" onclick="event.stopPropagation()">
+                    <button class="modal-close-btn" onclick="closePortfolioModal()">${getIcon('x', 18)}</button>
+                    <img src="${cs.afterImage}" class="modal-hero-image" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=500'" />
+                    <div class="modal-body">
+                        <div class="modal-header-meta">
+                            <h2 class="modal-title">${cs.clientName}</h2>
+                            <span class="modal-industry">${cs.industry}</span>
+                        </div>
+                        <div class="modal-metrics-strip">
+                            <div class="modal-metric-box">
+                                <span class="modal-metric-num">${cs.metrics.main}</span>
+                                <span class="modal-metric-lbl">${cs.metrics.sub}</span>
+                            </div>
+                            <div class="modal-metric-box">
+                                <span class="modal-metric-num">Rank #1</span>
+                                <span class="modal-metric-lbl">Local GBP Keyword</span>
+                            </div>
+                        </div>
+                        <div class="modal-details-grid">
+                            <div class="modal-detail-block">
+                                <h4>The Challenge</h4>
+                                <p>${cs.problem}</p>
+                            </div>
+                            <div class="modal-detail-block">
+                                <h4>The Solution</h4>
+                                <p>${cs.solution}</p>
+                            </div>
+                            <div class="modal-detail-block" style="grid-column: span 2">
+                                <h4>Outcome Description</h4>
+                                <p>${cs.result}</p>
+                            </div>
+                        </div>
+                        ${cs.beforeImage ? `
+                            <div class="modal-before-after">
+                                <div class="comparison-box">
+                                    <span>Initial Grid Presence</span>
+                                    <img src="${cs.beforeImage}" class="comparison-img" onerror="this.src='https://images.unsplash.com/photo-1563636619-e9143da7973b?q=80&w=300'" />
+                                </div>
+                                <div class="comparison-box">
+                                    <span>Post-Campaign Redesign</span>
+                                    <img src="${cs.afterImage}" class="comparison-img" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=300'" />
+                                </div>
+                            </div>
+                        ` : ""}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    return `
+        <section class="page-hero">
+            <div class="page-hero-overlay"></div>
+            <div class="page-hero-content">
+                <span class="section-tag">Case Ledger</span>
+                <h1 class="page-hero-title">${h.headline || "Work"}</h1>
+                <p class="page-hero-sub">${h.subtext || ""}</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="portfolio-filter-tabs">
+                ${tabs.map(t => `
+                    <button class="filter-tab ${state.activeTab === t ? 'active' : ''}" onclick="state.activeTab='${t}'; renderApp();">${t}</button>
+                `).join("")}
+            </div>
+
+            <div class="portfolio-grid">
+                ${filteredPortfolio.map(item => `
+                    <div class="case-study-card" onclick="openPortfolioModal(${item.id})">
+                        <div class="case-study-image-box">
+                            <span class="case-study-industry-badge">${item.industry}</span>
+                            <img src="${item.afterImage}" class="case-study-img" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=300'" />
+                        </div>
+                        <div class="case-study-info">
+                            <h3 class="case-study-client">${item.clientName}</h3>
+                            <p class="case-study-problem">${item.problem.substring(0, 105)}...</p>
+                            <div class="case-study-metrics-summary">
+                                <div>
+                                    <span class="metric-highlight">${item.metrics.main}</span><br/>
+                                    <span class="metric-label">${item.metrics.sub}</span>
+                                </div>
+                                ${getIcon('arrowRight', 16, 'form-submit-row')}
+                            </div>
+                        </div>
+                    </div>
+                `).join("")}
+            </div>
+        </section>
+        
+        ${modalHtml}
+    `;
+};
+
+// D. ABOUT VIEW
+const buildAboutView = () => {
+    const page = state.pages.find(p => p.id === "about") || { sections: [] };
+    const heroSect = page.sections.find(s => s.id === "about_hero") || { content: {} };
+    const h = heroSect.content;
+    const processSect = page.sections.find(s => s.id === "process") || { content: { steps: [] } };
+    const process = processSect.content;
+    const toolstackSect = page.sections.find(s => s.id === "toolstack") || { content: {} };
+    const toolstack = toolstackSect.content;
+
+    const tools = [
+        { name: "Midjourney", desc: "For cinematic photo prompts and campaign concept boards." },
+        { name: "ChatGPT (Custom LLM)", desc: "Tailored brand copywriting & local script guidelines." },
+        { name: "Premiere Pro / AI", desc: "Audio synchronization and automatic caption creation." },
+        { name: "Figma", desc: "Grid prototype layouts and logo typography testing." }
+    ];
+
+    return `
+        <section class="page-hero">
+            <div class="page-hero-overlay"></div>
+            <div class="page-hero-content">
+                <span class="section-tag">Agency Narrative</span>
+                <h1 class="page-hero-title">${h.headline || "About"}</h1>
+                <p class="page-hero-sub">${h.subtext || ""}</p>
+            </div>
+        </section>
+
+        ${isSectionActive('about', 'process') ? `
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-tag">Strategic Path</span>
+                    <h2 class="section-title">${process.title || ""}</h2>
+                    <p class="section-subtitle">${process.subtitle || ""}</p>
+                </div>
+                <div class="process-timeline">
+                    ${(process.steps || []).map((s, idx) => `
+                        <div class="process-step">
+                            <div class="process-node"></div>
+                            <span class="process-num">Phase 0${idx+1}</span>
+                            <h3 class="process-title">${s.title}</h3>
+                            <p class="process-desc">${s.desc}</p>
+                        </div>
+                    `).join("")}
+                </div>
+            </section>
+        ` : ""}
+
+        ${isSectionActive('about', 'toolstack') ? `
+            <section class="section" style="background-color: #0b0b0b; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color)">
+                <div class="section-header">
+                    <span class="section-tag">AI Stack</span>
+                    <h2 class="section-title">${toolstack.title || ""}</h2>
+                    <p class="section-subtitle">${toolstack.subtitle || ""}</p>
+                </div>
+                <div class="toolstack-grid">
+                    ${tools.map(t => `
+                        <div class="tool-card">
+                            <div class="tool-logo-placeholder">${getIcon('zap', 20)}</div>
+                            <h4 class="tool-name">${t.name}</h4>
+                            <p class="tool-desc">${t.desc}</p>
+                        </div>
+                    `).join("")}
+                </div>
+            </section>
+        ` : ""}
+    `;
+};
+
+// E. PRICING VIEW
+const buildPricingView = () => {
+    const page = state.pages.find(p => p.id === "pricing") || { sections: [] };
+    const heroSect = page.sections.find(s => s.id === "pricing_hero") || { content: {} };
+    const h = heroSect.content;
+
+    const faqs = [
+        { q: "Is the advertising budget included in these packages?", a: "No. Advertising budgets (Meta, Instagram, Google Ads) are always kept separate and paid directly by the client using their card. This ensures 100% transparency. GrowWith only charges a fixed execution retainer fee." },
+        { q: "Do you require long-term contracts?", a: "We work on a simple month-to-month agreement. You can pause or cancel our retainer at any time with a 15-day notice." },
+        { q: "Will you work with our direct competitors?", a: "To ensure maximum impact and data ethics, we offer complete industry exclusivity in Rajkot. If we sign a premium jewellery brand, we will not partner with another retail jeweler in Rajkot." }
+    ];
+
+    return `
+        <section class="page-hero">
+            <div class="page-hero-overlay"></div>
+            <div class="page-hero-content">
+                <span class="section-tag">Investment Guide</span>
+                <h1 class="page-hero-title">${h.headline || "Pricing"}</h1>
+                <p class="page-hero-sub">${h.subtext || ""}</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="pricing-grid">
+                ${state.packages.filter(p => p.show).map(p => `
+                    <div class="pricing-card ${p.recommended ? 'recommended' : ''}">
+                        ${p.recommended ? `<span class="recommended-badge">Recommended</span>` : ""}
+                        <div class="pricing-header">
+                            <h3 class="package-name">${p.name}</h3>
+                            <p class="package-tagline">${p.tagline}</p>
+                            <div class="pricing-price-mock">Get Quote</div>
+                        </div>
+                        <ul class="features-list">
+                            ${p.features.map(f => `
+                                <li class="feature-item">
+                                    ${getIcon('check', 16, 'feature-icon-check')}
+                                    <span>${f}</span>
+                                </li>
+                            `).join("")}
+                        </ul>
+                        <a href="#consultation" class="btn ${p.recommended ? 'btn-primary' : 'btn-outline'}">Request Custom Quote</a>
+                    </div>
+                `).join("")}
+            </div>
+
+            <div class="pricing-disclaimer">
+                ${getIcon('shield', 14)}
+                <strong>Disclaimer:</strong> Media and advertising budgets are always client-side and billed directly.
+            </div>
+        </section>
+
+        <section class="section" style="background-color: #0b0b0b; border-top: 1px solid var(--border-color)">
+            <div class="section-header">
+                <span class="section-tag">Common Inquiries</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-container">
+                ${faqs.map((f, idx) => `
+                    <div class="faq-item ${state.activeFaq === idx ? 'active' : ''}">
+                        <button class="faq-question-btn" onclick="toggleFaq(${idx})">
+                            <span>${f.q}</span>
+                            ${getIcon('chevronDown', 18, 'faq-icon-arrow')}
+                        </button>
+                        <div class="faq-answer">
+                            <p>${f.a}</p>
+                        </div>
+                    </div>
+                `).join("")}
+            </div>
+        </section>
+    `;
+};
+
+// F. BLOG VIEW
+const buildBlogView = () => {
+    const page = state.pages.find(p => p.id === "blog") || { sections: [] };
+    const heroSect = page.sections.find(s => s.id === "blog_hero") || { content: {} };
+    const h = heroSect.content;
+
+    let filteredBlogs = (state.blogs || []).filter(b => b.status === "published");
+    if (state.activeBlogTab !== "All") {
+        filteredBlogs = filteredBlogs.filter(b => b.category.toLowerCase() === state.activeBlogTab.toLowerCase());
+    }
+
+    return `
+        <section class="page-hero">
+            <div class="page-hero-overlay"></div>
+            <div class="page-hero-content">
+                <span class="section-tag">Library</span>
+                <h1 class="page-hero-title">${h.headline || "Blog"}</h1>
+                <p class="page-hero-sub">${h.subtext || ""}</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="blog-filter-tabs">
+                <button class="filter-tab ${state.activeBlogTab === "All" ? 'active' : ''}" onclick="state.activeBlogTab='All'; renderApp();">All</button>
+                ${(state.categories || []).map(c => `
+                    <button class="filter-tab ${state.activeBlogTab === c ? 'active' : ''}" onclick="state.activeBlogTab='${c}'; renderApp();">${c}</button>
+                `).join("")}
+            </div>
+
+            <div class="blog-grid">
+                ${filteredBlogs.map(b => `
+                    <div class="blog-card" onclick="window.location.hash='#blog-post/${b.id}'">
+                        <img src="${b.thumbnail}" alt="${b.title}" class="blog-card-image" onerror="this.src='https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=300'" />
+                        <div class="blog-card-body">
+                            <div class="blog-card-meta">
+                                <span class="blog-card-category">${b.category}</span>
+                                <span>${b.readTime}</span>
+                            </div>
+                            <h3 class="blog-card-title">${b.title}</h3>
+                            <div class="blog-card-btn">
+                                <span>Read Article</span>
+                                ${getIcon('arrowRight', 14)}
+                            </div>
+                        </div>
+                    </div>
+                `).join("")}
+            </div>
+        </section>
+    `;
+};
+
+// G. SINGLE BLOG POST VIEW
+const buildBlogPostView = () => {
+    const post = (state.blogs || []).find(b => b.id === state.selectedBlogPostId);
+    if (!post) return `<div class="section" style="text-align:center">Article Not Found</div>`;
+
+    return `
+        <article class="single-blog-container">
+            <a href="#blog" class="single-blog-back-btn">
+                ${getIcon('arrowLeft', 14)} Back to Blog
+            </a>
+            <div class="single-blog-header">
+                <span class="single-blog-category">${post.category}</span>
+                <h1 class="single-blog-title">${post.title}</h1>
+                <div class="single-blog-meta">
+                    <span>Published: ${post.date || "July 2026"}</span>
+                    <span>•</span>
+                    <span>${post.readTime}</span>
+                </div>
+            </div>
+            <img src="${post.thumbnail}" class="single-blog-hero-image" onerror="this.src='https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800'" />
+            <div class="single-blog-content">${post.content}</div>
+        </article>
+    `;
+};
+
+// H. CONSULTATION VIEW
+const buildConsultationView = () => {
+    const page = state.pages.find(p => p.id === "consultation") || { sections: [] };
+    const heroSect = page.sections.find(s => s.id === "consultation_hero") || { content: {} };
+    const h = heroSect.content;
+
+    return `
+        <section class="page-hero">
+            <div class="page-hero-overlay"></div>
+            <div class="page-hero-content">
+                <span class="section-tag">Consulting</span>
+                <h1 class="page-hero-title">${h.headline || "Let's Talk"}</h1>
+                <p class="page-hero-sub">${h.subtext || ""}</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="consultation-layout">
+                <div class="consultation-form-panel">
+                    <h3>Tell Us About Your Brand</h3>
+                    <form id="consultation-form-intake" onsubmit="window.submitLeadForm(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" id="lead-name" required class="form-input" placeholder="Rajesh Patel" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Business Name</label>
+                                <input type="text" id="lead-biz" required class="form-input" placeholder="Patel Jewellers" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">WhatsApp Number</label>
+                                <input type="tel" id="lead-phone" required class="form-input" placeholder="+91 XXXXX XXXXX" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Service Interested In</label>
+                                <select id="lead-service" class="form-select">
+                                    <option>Premium Profile & Brand Management</option>
+                                    <option>Content & Posts</option>
+                                    <option>Video & Reels</option>
+                                    <option>Google Business Profile Optimization</option>
+                                    <option>Seasonal Campaigns</option>
+                                    <option>Meta & Google Ads</option>
+                                </select>
+                            </div>
+                            <div class="form-group form-group-full">
+                                <label class="form-label">Preferred Time to Call</label>
+                                <select id="lead-time" class="form-select">
+                                    <option>Morning (10 AM - 12 PM)</option>
+                                    <option>Afternoon (12 PM - 4 PM)</option>
+                                    <option>Evening (4 PM - 7 PM)</option>
+                                </select>
+                            </div>
+                            <div class="form-group form-group-full">
+                                <label class="form-label">Brief Description</label>
+                                <textarea id="lead-message" class="form-textarea" placeholder="Your bottlenecks or goals..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-submit-row">
+                            <button type="submit" class="btn btn-primary">Submit intake form</button>
+                            <a href="https://wa.me/${state.settings.whatsappNumber.replace("+", "")}" target="_blank" class="direct-whatsapp-cta">
+                                ${getIcon('phone', 16)} Direct WhatsApp Chat
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="consultation-info-panel">
+                    <div class="info-block">
+                        <h4>What Happens Next?</h4>
+                        <div class="consultation-steps">
+                            <div class="consultation-step-item">
+                                <span class="c-step-num">01</span>
+                                <div class="c-step-info">
+                                    <h5>Details Review</h5>
+                                    <p>We review your active Instagram layouts and Google map keywords.</p>
+                                </div>
+                            </div>
+                            <div class="consultation-step-item">
+                                <span class="c-step-num">02</span>
+                                <div class="c-step-info">
+                                    <h5>Discovery WhatsApp</h5>
+                                    <p>We message you in 24 hours suggesting slot reviews.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+};
+
+// Handle lead form submission
+window.submitLeadForm = (e) => {
+    e.preventDefault();
+    const newLead = {
+        id: Date.now(),
+        name: document.getElementById("lead-name").value,
+        businessName: document.getElementById("lead-biz").value,
+        whatsappNumber: document.getElementById("lead-phone").value,
+        service: document.getElementById("lead-service").value,
+        bestTime: document.getElementById("lead-time").value,
+        message: document.getElementById("lead-message").value,
+        date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }),
+        status: "new"
+    };
+
+    state.leads = [newLead, ...state.leads];
+    saveDb("leads", state.leads);
+    
+    triggerToast("Request submitted successfully!");
+    document.getElementById("consultation-form-intake").reset();
+};
+
+/* ==========================================================================
+   ADMIN PANEL TEMPLATE ENGINE (VANILLA JS PORTAL WITH FULL CRUD OPERATIONS)
+   ========================================================================== */
+
+const buildAdminView = () => {
+    if (!state.isLoggedIn) {
+        return `
+            <section class="admin-login-layout" style="background-image: url('./assets/hero_bg.jpg')">
+                <div class="hero-overlay"></div>
+                <div class="admin-login-card">
+                    <h2 class="admin-login-title">${state.brand.agencyName} CMS</h2>
+                    <p class="admin-login-sub">Administrative Login</p>
+                    <form onsubmit="window.handleAdminLogin(event)" class="admin-login-form">
+                        <div class="form-group">
+                            <label class="form-label">Username</label>
+                            <input type="text" id="admin-user" required class="form-input" placeholder="admin" value="admin" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" id="admin-pass" required class="form-input" placeholder="admin123" />
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-top: 1rem">Log In</button>
+                        <a href="#home" style="text-align: center; font-size: 0.85rem; opacity: 0.5">Back to Website</a>
+                    </form>
+                </div>
+            </section>
+        `;
+    }
+
+    return `
+        <div class="admin-shell">
+            <aside class="admin-sidebar">
+                <div class="admin-sidebar-header">
+                    <img src="${state.brand.logoUrl}" class="admin-sidebar-logo" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=150'" />
+                    <h1 class="admin-sidebar-title">${state.brand.agencyName}<span>.</span></h1>
+                </div>
+                <ul class="admin-nav">
+                    <li class="admin-nav-item ${state.adminActiveTab === 'dashboard' ? 'active' : ''}">
+                        <button onclick="state.adminActiveTab='dashboard'; renderApp();">${getIcon('grid', 16)} Dashboard Home</button>
+                    </li>
+                    <li class="admin-nav-item ${state.adminActiveTab === 'pages' ? 'active' : ''}">
+                        <button onclick="state.adminActiveTab='pages'; renderApp();">${getIcon('fileText', 16)} Pages Manager</button>
+                    </li>
+                    <li class="admin-nav-item ${state.adminActiveTab === 'content' ? 'active' : ''}">
+                        <button onclick="state.adminActiveTab='content'; renderApp();">${getIcon('edit', 16)} Content Editor</button>
+                    </li>
+                    <li class="admin-nav-item ${state.adminActiveTab === 'services' ? 'active' : ''}">
+                        <button onclick="state.adminActiveTab='services'; renderApp();">${getIcon('zap', 16)} Services Manager</button>
+                    </li>
+                    <li class="admin-nav-item ${state.adminActiveTab === 'portfolio' ? 'active' : ''}">
+                        <button onclick="state.adminActiveTab='portfolio'; renderApp();">${getIcon('briefcase', 16)} Portfolio Manager</button>
+                    </li>
+                    <li class="admin-nav-item ${state.adminActiveTab === 'testimonials' ? 'active' : ''}">
+                        <button onclick="state.adminActiveTab='testimonials'; renderApp();">${getIcon('users', 16)} Testimonials</button>
+                    </li>
+                    <li class="admin-nav-item ${state.adminActiveTab === 'blog' ? 'active' : ''}">
+                        <button onclick="state.adminActiveTab='blog'; renderApp();">${getIcon('fileText', 16)} Blog Manager</button>
+                    </li>
+                    <li class="admin-nav-item ${state.adminActiveTab === 'brand' ? 'active' : ''}">
+                        <button onclick="state.adminActiveTab='brand'; renderApp();">${getIcon('image', 16)} Brand Settings</button>
+                    </li>
+                    <li class="admin-nav-item ${state.adminActiveTab === 'leads' ? 'active' : ''}">
+                        <button onclick="state.adminActiveTab='leads'; renderApp();">${getIcon('messageSquare', 16)} Leads (${state.leads.filter(l=>l.status==='new').length})</button>
+                    </li>
+                    <li class="admin-nav-item ${state.adminActiveTab === 'settings' ? 'active' : ''}">
+                        <button onclick="state.adminActiveTab='settings'; renderApp();">${getIcon('settings', 16)} Settings</button>
+                    </li>
+                </ul>
+                <div class="admin-sidebar-footer">
+                    <button class="admin-logout-btn" onclick="window.handleAdminLogout()">${getIcon('logOut', 16)} Log Out</button>
+                </div>
+            </aside>
+
+            <div class="admin-viewport">
+                <header class="admin-viewport-header">
+                    <h2>CMS Dashboard</h2>
+                    <div class="admin-user-badge">
+                        <span>Role: Admin</span>
+                        <div class="admin-avatar">A</div>
+                    </div>
+                </header>
+                <main class="admin-content-area">
+                    ${buildAdminTabContent()}
+                </main>
+            </div>
+        </div>
+    `;
+};
+
+// Admin handlers
+window.handleAdminLogin = (e) => {
+    e.preventDefault();
+    const user = document.getElementById("admin-user").value;
+    const pass = document.getElementById("admin-pass").value;
+    if (user === "admin" && pass === state.adminPassword) {
+        state.isLoggedIn = true;
+        sessionStorage.setItem("growwith_admin_logged_in", "true");
+        triggerToast("Login Successful!");
+        window.location.hash = "#admin";
+    } else {
+        alert("Invalid Username or Password!");
+    }
+};
+
+window.handleAdminLogout = () => {
+    state.isLoggedIn = false;
+    sessionStorage.removeItem("growwith_admin_logged_in");
+    triggerToast("Logged Out.");
+    window.location.hash = "#home";
+};
+
+// Render sub-contents inside CMS viewport
+const buildAdminTabContent = () => {
+    switch (state.adminActiveTab) {
+        case "dashboard":
+            return buildAdminDashboardHome();
+        case "pages":
+            return buildAdminPagesTab();
+        case "content":
+            return buildAdminContentTab();
+        case "services":
+            return buildAdminServicesTab();
+        case "portfolio":
+            return buildAdminPortfolioTab();
+        case "testimonials":
+            return buildAdminTestimonialsTab();
+        case "blog":
+            return buildAdminBlogTab();
+        case "brand":
+            return buildAdminBrandTab();
+        case "leads":
+            return buildAdminLeadsTab();
+        case "settings":
+            return buildAdminSettingsTab();
+        default:
+            return `<div>Coming Soon</div>`;
+    }
+};
+
+// CMS Sub-views
+const buildAdminDashboardHome = () => {
+    const newLeads = state.leads.filter(l => l.status === "new").length;
+    return `
+        <div class="admin-stats-grid">
+            <div class="admin-stat-card">
+                <div class="admin-stat-info">
+                    <h4>Total Leads</h4>
+                    <span class="admin-stat-num">${state.leads.length}</span>
+                </div>
+                ${getIcon('messageSquare', 32, 'admin-stat-icon')}
+            </div>
+            <div class="admin-stat-card">
+                <div class="admin-stat-info">
+                    <h4>New Leads Today</h4>
+                    <span class="admin-stat-num" style="color: ${newLeads > 0 ? 'var(--primary-gold)' : 'inherit'}">${newLeads}</span>
+                </div>
+                ${getIcon('zap', 32, 'admin-stat-icon')}
+            </div>
+            <div class="admin-stat-card">
+                <div class="admin-stat-info">
+                    <h4>Active Pages</h4>
+                    <span class="admin-stat-num">${state.pages.filter(p=>p.active).length} / 7</span>
+                </div>
+                ${getIcon('grid', 32, 'admin-stat-icon')}
+            </div>
+        </div>
+
+        <div class="admin-dashboard-widgets">
+            <div class="admin-panel-card" style="margin-bottom: 0">
+                <h3>Recent Intake leads</h3>
+                <div class="leads-table-container">
+                    <table class="leads-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Business</th>
+                                <th>Service</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${state.leads.slice(0, 4).map(l => `
+                                <tr>
+                                    <td>${l.name}</td>
+                                    <td>${l.businessName}</td>
+                                    <td>${l.service}</td>
+                                    <td><span class="status-badge ${l.status}">${l.status}</span></td>
+                                </tr>
+                            `).join("")}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    `;
+};
+
+// Pages toggles list
+const buildAdminPagesTab = () => {
+    return `
+        <div class="pages-manager-list">
+            ${state.pages.map((p, idx) => `
+                <div class="page-row-card">
+                    <div class="page-row-header" onclick="state.adminExpandedPage = (state.adminExpandedPage === '${p.id}' ? null : '${p.id}'); renderApp();">
+                        <div class="page-row-header-left">
+                            ${getIcon(state.adminExpandedPage === p.id ? 'chevronDown' : 'chevronRight', 18)}
+                            <span class="page-row-title">${p.title} Page</span>
+                        </div>
+                        <div onclick="event.stopPropagation()">
+                            <label class="switch">
+                                <input type="checkbox" ${p.active ? 'checked' : ''} onchange="window.toggleCmsPage('${p.id}')" />
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    ${state.adminExpandedPage === p.id ? `
+                        <div class="sections-expand-panel">
+                            <div class="sections-drag-list">
+                                ${p.sections.map((s, sIdx) => `
+                                    <div class="section-drag-item">
+                                        <span>${s.title}</span>
+                                        <div style="display:flex; align-items:center; gap: 1rem">
+                                            <div class="section-order-controls">
+                                                <button class="order-btn" ${sIdx === 0 ? 'disabled' : ''} onclick="window.reorderSection('${p.id}', ${sIdx}, 'up')">${getIcon('arrowUp', 12)}</button>
+                                                <button class="order-btn" ${sIdx === p.sections.length - 1 ? 'disabled' : ''} onclick="window.reorderSection('${p.id}', ${sIdx}, 'down')">${getIcon('arrowDown', 12)}</button>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" ${s.active ? 'checked' : ''} onchange="window.toggleCmsSection('${p.id}', '${s.id}')" />
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                `).join("")}
+                            </div>
+                        </div>
+                    ` : ""}
+                </div>
+            `).join("")}
+        </div>
+    `;
+};
+
+window.toggleCmsPage = (id) => {
+    state.pages = state.pages.map(p => p.id === id ? { ...p, active: !p.active } : p);
+    saveDb("pages", state.pages);
+    triggerToast("Page settings updated.");
+};
+
+window.toggleCmsSection = (pId, sId) => {
+    state.pages = state.pages.map(p => {
+        if (p.id === pId) {
+            const updated = p.sections.map(s => s.id === sId ? { ...s, active: !s.active } : s);
+            return { ...p, sections: updated };
+        }
+        return p;
+    });
+    saveDb("pages", state.pages);
+    triggerToast("Section visibility updated.");
+};
+
+window.reorderSection = (pId, idx, direction) => {
+    const page = state.pages.find(p => p.id === pId);
+    const newIdx = direction === "up" ? idx - 1 : idx + 1;
+    const sects = [...page.sections];
+    
+    const temp = sects[idx];
+    sects[idx] = sects[newIdx];
+    sects[newIdx] = temp;
+
+    state.pages = state.pages.map(p => p.id === pId ? { ...p, sections: sects } : p);
+    saveDb("pages", state.pages);
+    triggerToast("Layout sequence updated.");
+};
+
+// BrandSettings Tab template
+const buildAdminBrandTab = () => {
+    return `
+        <form onsubmit="window.saveCmsBrand(event)" class="admin-panel-card" style="max-width: 700px">
+            <h3>Custom Palette & Logo Details</h3>
+            <div class="admin-editor-grid">
+                <div class="admin-form-group">
+                    <label>Agency Name</label>
+                    <input type="text" id="brand-name" class="admin-form-control" value="${state.brand.agencyName}" />
+                </div>
+                <div class="admin-form-group">
+                    <label>Brand Logo URL Asset</label>
+                    <input type="text" id="brand-logo" class="admin-form-control" value="${state.brand.logoUrl}" />
+                    <p style="font-size:0.8rem; color:#666; margin-top:5px">Or paste a base64 string or web URL.</p>
+                </div>
+                
+                <h4 style="color:#fff; border-bottom:1px solid #222; padding-bottom:5px; margin-top:1rem">Brand Colors Palette</h4>
+                <div class="color-pickers-grid">
+                    <div class="color-picker-box">
+                        <label>Gold Hex</label>
+                        <input type="color" id="brand-c-gold" class="color-picker-input" value="${state.brand.primaryColor}" />
+                    </div>
+                    <div class="color-picker-box">
+                        <label>Background Hex</label>
+                        <input type="color" id="brand-c-bg" class="color-picker-input" value="${state.brand.backgroundColor}" />
+                    </div>
+                    <div class="color-picker-box">
+                        <label>Accent Hex</label>
+                        <input type="color" id="brand-c-accent" class="color-picker-input" value="${state.brand.accentColor}" />
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 2rem">Save Branding</button>
+        </form>
+    `;
+};
+
+window.saveCmsBrand = (e) => {
+    e.preventDefault();
+    state.brand.agencyName = document.getElementById("brand-name").value;
+    state.brand.logoUrl = document.getElementById("brand-logo").value;
+    state.brand.primaryColor = document.getElementById("brand-c-gold").value;
+    state.brand.backgroundColor = document.getElementById("brand-c-bg").value;
+    state.brand.accentColor = document.getElementById("brand-c-accent").value;
+    
+    saveDb("brand", state.brand);
+    applyStyles();
+    triggerToast("Branding settings saved live!");
+};
+
+// Content Tab Template
+const buildAdminContentTab = () => {
+    const page = state.pages.find(p => p.id === "home") || { sections: [] };
+    const heroSect = page.sections.find(s => s.id === "hero") || { content: {} };
+    const hero = heroSect.content;
+
+    return `
+        <form onsubmit="window.saveCmsContent(event)" class="admin-panel-card" style="max-width: 700px">
+            <h3>Home Page Hero Content Editor</h3>
+            <div class="admin-editor-grid">
+                <div class="admin-form-group">
+                    <label>Headline Headline</label>
+                    <input type="text" id="edit-hero-headline" class="admin-form-control" value="${hero.headline || ''}" />
+                </div>
+                <div class="admin-form-group">
+                    <label>Headline Gold Accent word</label>
+                    <input type="text" id="edit-hero-accent" class="admin-form-control" value="${hero.headlineAccent || ''}" />
+                </div>
+                <div class="admin-form-group">
+                    <label>Hero Subtext</label>
+                    <textarea id="edit-hero-subtext" class="admin-form-control admin-textarea">${hero.subtext || ''}</textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 2rem">Save Headline Content</button>
+        </form>
+    `;
+};
+
+window.saveCmsContent = (e) => {
+    e.preventDefault();
+    const page = state.pages.find(p => p.id === "home");
+    const heroSect = page.sections.find(s => s.id === "hero");
+    if (heroSect) {
+        heroSect.content.headline = document.getElementById("edit-hero-headline").value;
+        heroSect.content.headlineAccent = document.getElementById("edit-hero-accent").value;
+        heroSect.content.subtext = document.getElementById("edit-hero-subtext").value;
+    }
+
+    saveDb("pages", state.pages);
+    triggerToast("Editorial texts updated successfully!");
+};
+
+// Services Manager Tab
+const buildAdminServicesTab = () => {
+    if (state.editingServiceId !== null) {
+        const s = state.services.find(item => item.id === state.editingServiceId);
+        if (!s) return "";
+        return `
+            <form onsubmit="window.saveCmsService(event, ${s.id})" class="admin-panel-card" style="max-width: 700px">
+                <h3>Edit Service: ${s.title}</h3>
+                <div class="admin-editor-grid">
+                    <div class="admin-form-group">
+                        <label>Icon Symbol</label>
+                        <input type="text" id="srv-icon" class="admin-form-control" value="${s.icon}" required />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Title</label>
+                        <input type="text" id="srv-title" class="admin-form-control" value="${s.title}" required />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Description</label>
+                        <textarea id="srv-desc" class="admin-form-control admin-textarea" required>${s.desc}</textarea>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Tags (comma separated)</label>
+                        <input type="text" id="srv-tags" class="admin-form-control" value="${s.tags.join(', ')}" required />
+                    </div>
+                </div>
+                <div style="display:flex; gap:1rem; margin-top:2rem">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-outline" onclick="state.editingServiceId=null; renderApp();">Cancel</button>
+                </div>
+            </form>
+        `;
+    }
+
+    return `
+        <div class="manager-header-row">
+            <h3>Services List</h3>
+            <p style="color:#666">Modify GrowWith's core offerings displayed on the frontend.</p>
+        </div>
+        <div class="admin-panel-card">
+            <div class="leads-table-container">
+                <table class="leads-table">
+                    <thead>
+                        <tr>
+                            <th>Icon</th>
+                            <th>Service Title</th>
+                            <th>Tags</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${state.services.map(s => `
+                            <tr>
+                                <td style="font-size:1.5rem; color:var(--primary-gold)">${s.icon}</td>
+                                <td><strong>${s.title}</strong></td>
+                                <td>${s.tags.map(t => `<span class="service-tag-item" style="margin-right:4px">${t}</span>`).join("")}</td>
+                                <td>
+                                    <button class="btn-icon" style="color:var(--primary-gold)" onclick="state.editingServiceId=${s.id}; renderApp();">${getIcon('edit', 14)}</button>
+                                </td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+};
+
+window.saveCmsService = (e, id) => {
+    e.preventDefault();
+    const tagsVal = document.getElementById("srv-tags").value;
+    const tagsArr = tagsVal.split(",").map(t => t.trim()).filter(t => t !== "");
+
+    state.services = state.services.map(s => s.id === id ? {
+        ...s,
+        icon: document.getElementById("srv-icon").value,
+        title: document.getElementById("srv-title").value,
+        desc: document.getElementById("srv-desc").value,
+        tags: tagsArr
+    } : s);
+
+    saveDb("services", state.services);
+    state.editingServiceId = null;
+    triggerToast("Service updated successfully!");
+};
+
+// Portfolio Manager Tab
+const buildAdminPortfolioTab = () => {
+    if (state.editingPortfolioId !== null) {
+        const item = state.editingPortfolioId === "new" ? {
+            clientName: "", industry: "Jewellery", problem: "", solution: "", result: "",
+            metrics: { main: "", sub: "" }, beforeImage: "", afterImage: "", show: true
+        } : state.portfolio.find(p => p.id === state.editingPortfolioId);
+        
+        if (!item) return "";
+
+        return `
+            <form onsubmit="window.saveCmsPortfolio(event, '${state.editingPortfolioId}')" class="admin-panel-card" style="max-width: 800px">
+                <h3>${state.editingPortfolioId === 'new' ? 'Add Case Study' : 'Edit Case Study'}</h3>
+                <div class="admin-editor-grid">
+                    <div class="admin-form-group">
+                        <label>Client Name</label>
+                        <input type="text" id="port-client" class="admin-form-control" value="${item.clientName}" required placeholder="Vrajlal & Sons Jewellers" />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Industry</label>
+                        <select id="port-industry" class="admin-form-control" style="background:#111; color:#fff">
+                            <option value="Jewellery" ${item.industry === 'Jewellery' ? 'selected' : ''}>Jewellery</option>
+                            <option value="Dairy" ${item.industry === 'Dairy' ? 'selected' : ''}>Dairy</option>
+                            <option value="Interior Design" ${item.industry === 'Interior Design' ? 'selected' : ''}>Interior Design</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Before Image Asset URL</label>
+                        <input type="text" id="port-before" class="admin-form-control" value="${item.beforeImage || ''}" placeholder="https://images.unsplash.com/..." />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>After Image Asset URL</label>
+                        <input type="text" id="port-after" class="admin-form-control" value="${item.afterImage || ''}" required placeholder="./assets/case_study_jewellery.jpg" />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Metric Highlight (Main)</label>
+                        <input type="text" id="port-metric-main" class="admin-form-control" value="${item.metrics.main}" required placeholder="+140%" />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Metric Label (Sub)</label>
+                        <input type="text" id="port-metric-sub" class="admin-form-control" value="${item.metrics.sub}" required placeholder="Bridal Walk-ins" />
+                    </div>
+                    <div class="admin-form-group admin-form-group-full">
+                        <label>The Challenge / Problem</label>
+                        <textarea id="port-prob" class="admin-form-control admin-textarea" required>${item.problem}</textarea>
+                    </div>
+                    <div class="admin-form-group admin-form-group-full">
+                        <label>The Solution</label>
+                        <textarea id="port-sol" class="admin-form-control admin-textarea" required>${item.solution}</textarea>
+                    </div>
+                    <div class="admin-form-group admin-form-group-full">
+                        <label>Outcome Description</label>
+                        <textarea id="port-res" class="admin-form-control admin-textarea" required>${item.result}</textarea>
+                    </div>
+                    <div class="admin-form-group">
+                        <label class="switch-label-flex" style="display:flex; align-items:center; gap:10px; color:#fff">
+                            <input type="checkbox" id="port-show" ${item.show ? 'checked' : ''} />
+                            <span>Show on Portfolio Grid</span>
+                        </label>
+                    </div>
+                </div>
+                <div style="display:flex; gap:1rem; margin-top:2rem">
+                    <button type="submit" class="btn btn-primary">Save Case Study</button>
+                    <button type="button" class="btn btn-outline" onclick="state.editingPortfolioId=null; renderApp();">Cancel</button>
+                </div>
+            </form>
+        `;
+    }
+
+    return `
+        <div class="manager-header-row" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem">
+            <div>
+                <h3>Portfolio Ledger</h3>
+                <p style="color:#666">Create and modify client case studies with before/after comparisons.</p>
+            </div>
+            <button class="btn btn-primary" onclick="state.editingPortfolioId='new'; renderApp();">${getIcon('plus', 14)} Add Case Study</button>
+        </div>
+        <div class="admin-panel-card">
+            <div class="leads-table-container">
+                <table class="leads-table">
+                    <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th>Industry</th>
+                            <th>Metric</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${state.portfolio.map(p => `
+                            <tr>
+                                <td><strong>${p.clientName}</strong></td>
+                                <td>${p.industry}</td>
+                                <td><span style="color:var(--primary-gold); font-weight:600">${p.metrics.main}</span> ${p.metrics.sub}</td>
+                                <td><span class="status-badge ${p.show ? 'published' : 'draft'}">${p.show ? 'visible' : 'hidden'}</span></td>
+                                <td>
+                                    <div style="display:flex; gap:0.5rem">
+                                        <button class="btn-icon" style="color:var(--primary-gold)" onclick="state.editingPortfolioId=${p.id}; renderApp();">${getIcon('edit', 14)}</button>
+                                        <button class="btn-icon btn-icon-danger" onclick="window.deleteCmsPortfolio(${p.id})">${getIcon('trash', 14)}</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+};
+
+window.saveCmsPortfolio = (e, editId) => {
+    e.preventDefault();
+    const newCase = {
+        clientName: document.getElementById("port-client").value,
+        industry: document.getElementById("port-industry").value,
+        beforeImage: document.getElementById("port-before").value,
+        afterImage: document.getElementById("port-after").value,
+        metrics: {
+            main: document.getElementById("port-metric-main").value,
+            sub: document.getElementById("port-metric-sub").value
+        },
+        problem: document.getElementById("port-prob").value,
+        solution: document.getElementById("port-sol").value,
+        result: document.getElementById("port-res").value,
+        show: document.getElementById("port-show").checked
+    };
+
+    if (editId === "new") {
+        newCase.id = Date.now();
+        state.portfolio.push(newCase);
+    } else {
+        const idNum = parseInt(editId, 10);
+        state.portfolio = state.portfolio.map(p => p.id === idNum ? { ...newCase, id: idNum } : p);
+    }
+
+    saveDb("portfolio", state.portfolio);
+    state.editingPortfolioId = null;
+    triggerToast("Portfolio saved successfully!");
+};
+
+window.deleteCmsPortfolio = (id) => {
+    if (confirm("Delete this case study?")) {
+        state.portfolio = state.portfolio.filter(p => p.id !== id);
+        saveDb("portfolio", state.portfolio);
+        triggerToast("Case study deleted.");
+    }
+};
+
+// Testimonials Tab CRUD
+const buildAdminTestimonialsTab = () => {
+    if (state.editingTestimonialId !== null) {
+        const item = state.editingTestimonialId === "new" ? {
+            clientName: "", business: "", quote: "", photo: "", show: true, order: 0
+        } : state.testimonials.find(t => t.id === state.editingTestimonialId);
+        
+        if (!item) return "";
+
+        return `
+            <form onsubmit="window.saveCmsTestimonial(event, '${state.editingTestimonialId}')" class="admin-panel-card" style="max-width: 700px">
+                <h3>${state.editingTestimonialId === 'new' ? 'Add Testimonial' : 'Edit Testimonial'}</h3>
+                <div class="admin-editor-grid">
+                    <div class="admin-form-group">
+                        <label>Client Name</label>
+                        <input type="text" id="tst-name" class="admin-form-control" value="${item.clientName}" required placeholder="Dharmesh Shah" />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Business Details</label>
+                        <input type="text" id="tst-biz" class="admin-form-control" value="${item.business}" required placeholder="Vrajlal Jewellers, Rajkot" />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Client Photo URL</label>
+                        <input type="text" id="tst-photo" class="admin-form-control" value="${item.photo}" placeholder="https://images.unsplash.com/..." />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Display Order</label>
+                        <input type="number" id="tst-order" class="admin-form-control" value="${item.order || 0}" required />
+                    </div>
+                    <div class="admin-form-group admin-form-group-full">
+                        <label>Quote / Recommendation Text</label>
+                        <textarea id="tst-quote" class="admin-form-control admin-textarea" required>${item.quote}</textarea>
+                    </div>
+                    <div class="admin-form-group">
+                        <label style="display:flex; align-items:center; gap:10px; color:#fff">
+                            <input type="checkbox" id="tst-show" ${item.show ? 'checked' : ''} />
+                            <span>Show testimonials on Home Page</span>
+                        </label>
+                    </div>
+                </div>
+                <div style="display:flex; gap:1rem; margin-top:2rem">
+                    <button type="submit" class="btn btn-primary">Save Testimonial</button>
+                    <button type="button" class="btn btn-outline" onclick="state.editingTestimonialId=null; renderApp();">Cancel</button>
+                </div>
+            </form>
+        `;
+    }
+
+    return `
+        <div class="manager-header-row" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem">
+            <div>
+                <h3>Testimonials Hub</h3>
+                <p style="color:#666">Add and edit quotes from business visionaries in Gujarat.</p>
+            </div>
+            <button class="btn btn-primary" onclick="state.editingTestimonialId='new'; renderApp();">${getIcon('plus', 14)} Add Testimonial</button>
+        </div>
+        <div class="admin-panel-card">
+            <div class="leads-table-container">
+                <table class="leads-table">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Name</th>
+                            <th>Business</th>
+                            <th>Quote Preview</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${state.testimonials.sort((a,b) => (a.order || 0) - (b.order || 0)).map(t => `
+                            <tr>
+                                <td>${t.order || 0}</td>
+                                <td><strong>${t.clientName}</strong></td>
+                                <td>${t.business}</td>
+                                <td style="max-width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">"${t.quote}"</td>
+                                <td>
+                                    <div style="display:flex; gap:0.5rem">
+                                        <button class="btn-icon" style="color:var(--primary-gold)" onclick="state.editingTestimonialId=${t.id}; renderApp();">${getIcon('edit', 14)}</button>
+                                        <button class="btn-icon btn-icon-danger" onclick="window.deleteCmsTestimonial(${t.id})">${getIcon('trash', 14)}</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+};
+
+window.saveCmsTestimonial = (e, editId) => {
+    e.preventDefault();
+    const newTst = {
+        clientName: document.getElementById("tst-name").value,
+        business: document.getElementById("tst-biz").value,
+        photo: document.getElementById("tst-photo").value || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150",
+        order: parseInt(document.getElementById("tst-order").value, 10),
+        quote: document.getElementById("tst-quote").value,
+        show: document.getElementById("tst-show").checked
+    };
+
+    if (editId === "new") {
+        newTst.id = Date.now();
+        state.testimonials.push(newTst);
+    } else {
+        const idNum = parseInt(editId, 10);
+        state.testimonials = state.testimonials.map(t => t.id === idNum ? { ...newTst, id: idNum } : t);
+    }
+
+    saveDb("testimonials", state.testimonials);
+    state.editingTestimonialId = null;
+    triggerToast("Testimonial saved!");
+};
+
+window.deleteCmsTestimonial = (id) => {
+    if (confirm("Delete this testimonial?")) {
+        state.testimonials = state.testimonials.filter(t => t.id !== id);
+        saveDb("testimonials", state.testimonials);
+        triggerToast("Testimonial deleted.");
+    }
+};
+
+// Blog Manager CRUD Tab
+const buildAdminBlogTab = () => {
+    if (state.editingBlogId !== null) {
+        const item = state.editingBlogId === "new" ? {
+            title: "", category: "SEO", thumbnail: "", readTime: "5 min read", date: "", content: "", status: "draft"
+        } : state.blogs.find(b => b.id === state.editingBlogId);
+        
+        if (!item) return "";
+
+        return `
+            <form onsubmit="window.saveCmsBlog(event, '${state.editingBlogId}')" class="admin-panel-card" style="max-width: 800px">
+                <h3>${state.editingBlogId === 'new' ? 'Create Blog Post' : 'Edit Blog Post'}</h3>
+                <div class="admin-editor-grid">
+                    <div class="admin-form-group">
+                        <label>Blog Title</label>
+                        <input type="text" id="blg-title" class="admin-form-control" value="${item.title}" required placeholder="How to scale maps rankings..." />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Category</label>
+                        <select id="blg-category" class="admin-form-control" style="background:#111; color:#fff">
+                            ${state.categories.map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join("")}
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Thumbnail Image URL</label>
+                        <input type="text" id="blg-thumb" class="admin-form-control" value="${item.thumbnail}" placeholder="https://images.unsplash.com/..." required />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Read Time estimation</label>
+                        <input type="text" id="blg-time" class="admin-form-control" value="${item.readTime}" placeholder="5 min read" required />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Publish Status</label>
+                        <select id="blg-status" class="admin-form-control" style="background:#111; color:#fff">
+                            <option value="published" ${item.status === 'published' ? 'selected' : ''}>Published</option>
+                            <option value="draft" ${item.status === 'draft' ? 'selected' : ''}>Draft</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group admin-form-group-full">
+                        <label>Post Content HTML</label>
+                        <textarea id="blg-content" class="admin-form-control admin-textarea" style="height:350px" required placeholder="<h2>Sub-headline</h2><p>Article body content...</p>">${item.content}</textarea>
+                    </div>
+                </div>
+                <div style="display:flex; gap:1rem; margin-top:2rem">
+                    <button type="submit" class="btn btn-primary">Save Blog Post</button>
+                    <button type="button" class="btn btn-outline" onclick="state.editingBlogId=null; renderApp();">Cancel</button>
+                </div>
+            </form>
+        `;
+    }
+
+    return `
+        <div class="manager-header-row" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem">
+            <div>
+                <h3>Insights Hub Articles</h3>
+                <p style="color:#666">Add and edit educational growth guides for Rajkot brand managers.</p>
+            </div>
+            <button class="btn btn-primary" onclick="state.editingBlogId='new'; renderApp();">${getIcon('plus', 14)} Create Post</button>
+        </div>
+        <div class="admin-panel-card">
+            <div class="leads-table-container">
+                <table class="leads-table">
+                    <thead>
+                        <tr>
+                            <th>Thumbnail</th>
+                            <th>Blog Title</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${state.blogs.map(b => `
+                            <tr>
+                                <td><img src="${b.thumbnail}" style="width:40px; height:40px; object-fit:cover; border-radius:4px" onerror="this.src='https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=150'" /></td>
+                                <td><strong>${b.title}</strong></td>
+                                <td>${b.category}</td>
+                                <td><span class="status-badge ${b.status === 'published' ? 'published' : 'draft'}">${b.status}</span></td>
+                                <td>
+                                    <div style="display:flex; gap:0.5rem">
+                                        <button class="btn-icon" style="color:var(--primary-gold)" onclick="state.editingBlogId=${b.id}; renderApp();">${getIcon('edit', 14)}</button>
+                                        <button class="btn-icon btn-icon-danger" onclick="window.deleteCmsBlog(${b.id})">${getIcon('trash', 14)}</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+};
+
+window.saveCmsBlog = (e, editId) => {
+    e.preventDefault();
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+
+    const newPost = {
+        title: document.getElementById("blg-title").value,
+        category: document.getElementById("blg-category").value,
+        thumbnail: document.getElementById("blg-thumb").value,
+        readTime: document.getElementById("blg-time").value,
+        content: document.getElementById("blg-content").value,
+        status: document.getElementById("blg-status").value,
+        date: formattedDate
+    };
+
+    if (editId === "new") {
+        newPost.id = Date.now();
+        state.blogs.push(newPost);
+    } else {
+        const idNum = parseInt(editId, 10);
+        const oldPost = state.blogs.find(b => b.id === idNum);
+        newPost.id = idNum;
+        newPost.date = oldPost ? oldPost.date : formattedDate;
+        state.blogs = state.blogs.map(b => b.id === idNum ? newPost : b);
+    }
+
+    saveDb("blogs", state.blogs);
+    state.editingBlogId = null;
+    triggerToast("Blog post saved!");
+};
+
+window.deleteCmsBlog = (id) => {
+    if (confirm("Delete this blog post?")) {
+        state.blogs = state.blogs.filter(b => b.id !== id);
+        saveDb("blogs", state.blogs);
+        triggerToast("Post deleted.");
+    }
+};
+
+// Leads Tab Template
+const buildAdminLeadsTab = () => {
+    return `
+        <div class="manager-header-row">
+            <h3>Intake Inbound Leads Log</h3>
+            <button class="btn btn-outline" onclick="window.downloadLeadsCSV()">Download Report CSV</button>
+        </div>
+        <div class="admin-panel-card">
+            <div class="leads-table-container">
+                <table class="leads-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Business Name</th>
+                            <th>WhatsApp</th>
+                            <th>Service</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${state.leads.map(l => `
+                            <tr>
+                                <td>${l.date}</td>
+                                <td><strong>${l.name}</strong></td>
+                                <td>${l.businessName}</td>
+                                <td>${l.whatsappNumber}</td>
+                                <td>${l.service}</td>
+                                <td>
+                                    <div style="display:flex; gap:0.5rem">
+                                        <button class="btn-icon btn-icon-danger" onclick="window.deleteCmsLead(${l.id})">${getIcon('trash', 12)}</button>
+                                        <a href="https://wa.me/${l.whatsappNumber.replace(/[^0-9]/g, '')}?text=Hi%20${encodeURIComponent(l.name)}" target="_blank" class="btn-icon" style="color:#25d366">${getIcon('messageSquare', 12)}</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+};
+
+window.deleteCmsLead = (id) => {
+    if (confirm("Delete this lead log?")) {
+        state.leads = state.leads.filter(l => l.id !== id);
+        saveDb("leads", state.leads);
+        triggerToast("Lead log removed.");
+    }
+};
+
+window.downloadLeadsCSV = () => {
+    let csv = "Date,Name,Business,WhatsApp,Service,Message\n";
+    state.leads.forEach(l => {
+        csv += `"${l.date}","${l.name}","${l.businessName}","${l.whatsappNumber}","${l.service}","${l.message}"\n`;
+    });
+    
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'GrowWith_Leads.csv');
+    a.click();
+    triggerToast("CSV Download Initiated.");
+};
+
+// System Settings Tab
+const buildAdminSettingsTab = () => {
+    return `
+        <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3rem">
+            <form onsubmit="window.saveSystemSettings(event)" class="admin-panel-card">
+                <h3>Contact & Pixels</h3>
+                <div class="admin-editor-grid">
+                    <div class="admin-form-group">
+                        <label>WhatsApp Number</label>
+                        <input type="text" id="set-wa" class="admin-form-control" value="${state.settings.whatsappNumber}" />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Contact Email</label>
+                        <input type="email" id="set-email" class="admin-form-control" value="${state.settings.contactEmail}" />
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Instagram URL</label>
+                        <input type="text" id="set-insta" class="admin-form-control" value="${state.settings.instagramUrl}" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 2rem">Save Settings</button>
+            </form>
+            <div class="admin-panel-card">
+                <h3>Debug Console</h3>
+                <p style="color:#666; font-size:0.85rem; margin-bottom:1rem">If you experience local cache errors, reset the simulated database back to defaults.</p>
+                <button class="btn btn-outline" onclick="window.resetDatabase()" style="width:100%; border-color:#ff5f6d; color:#ff5f6d">Reset Database Cache</button>
+            </div>
+        </div>
+    `;
+};
+
+window.saveSystemSettings = (e) => {
+    e.preventDefault();
+    state.settings.whatsappNumber = document.getElementById("set-wa").value;
+    state.settings.contactEmail = document.getElementById("set-email").value;
+    state.settings.instagramUrl = document.getElementById("set-insta").value;
+    
+    saveDb("settings", state.settings);
+    triggerToast("Settings saved successfully.");
+};
+
+/* ==========================================================================
+   DOM INITIALIZER & MOUNTER
+   ========================================================================== */
+const renderApp = () => {
+    try {
+        const rootEl = document.getElementById("root");
+        if (!rootEl) return;
+        
+        rootEl.innerHTML = `
+            <div class="app-container">
+                ${buildHeader()}
+                <main style="flex-grow: 1">
+                    ${buildBody()}
+                </main>
+                ${buildFooter()}
+                
+                <!-- Toast notification log -->
+                <div class="toast-container">
+                    ${state.toasts.map(t => `
+                        <div class="toast">
+                            <span style="color:var(--primary-gold)">✓</span>
+                            <span>${t.message}</span>
+                        </div>
+                    `).join("")}
+                </div>
+            </div>
+        `;
+    } catch(e) {
+        console.error("DOM rendering failed:", e);
+        const rootEl = document.getElementById("root");
+        if (rootEl) {
+            rootEl.innerHTML = `
+                <div style="background:#080808; color:#fff; font-family:sans-serif; text-align:center; padding:10rem 2rem">
+                    <h2 style="color:#ff5f6d; margin-bottom:1rem">Website Render Stalled</h2>
+                    <p style="color:#8E8E8E; margin-bottom:2.5rem; max-width:500px; margin-left:auto; margin-right:auto">
+                        This is usually caused by outdated or corrupt data in the browser cache database.
+                    </p>
+                    <button onclick="window.resetDatabase()" style="background:#C9A84C; color:#000; border:none; padding:1rem 2.5rem; cursor:pointer; font-weight:600">
+                        Reset Database Cache & Reload
+                    </button>
+                </div>
+            `;
+        }
+    }
+};
+
+// App Initialization
+window.onload = () => {
+    loadDatabase();
+    applyStyles();
+    
+    // Simple path hash router
+    const handleRoute = () => {
+        const hash = window.location.hash;
+        if (hash === "#admin") {
+            state.route = "admin";
+        } else if (hash.startsWith("#blog-post/")) {
+            state.selectedBlogPostId = parseInt(hash.replace("#blog-post/", ""), 10);
+            state.route = "blog-post";
+        } else if (hash) {
+            state.route = hash.replace("#", "");
+        } else {
+            state.route = "home";
+        }
+        window.scrollTo(0, 0);
+        renderApp();
+    };
+    
+    window.addEventListener("hashchange", handleRoute);
+    handleRoute(); // Run initially
+};
+
+    </script>
+</body>
+</html>
